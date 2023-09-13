@@ -1,10 +1,15 @@
 # my_terraform_project
 Creating a full infrastructure setup including a VPC, subnets, route table, Elastic Load Balancer (ELB), security group, and an Nginx server using Terraform
 my_terraform_project/
+
 ├── main.tf
+
 ├── variables.tf
+
 ├── terraform.tfvars
+
 └── credentials.tf
+
 
 Initialize your Terraform workspace:
 terraform init
