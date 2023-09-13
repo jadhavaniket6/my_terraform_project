@@ -75,6 +75,29 @@ resource "aws_lb" "my_elb" {
 }
 
 # Add Nginx Server Resources Here
+resource "aws_instance" "nginx_server" {
+  ami           = "ami-0c55b159cbfafe1f0"  # Replace with the desired Nginx AMI
+  instance_type = "t2.micro"  # Replace with the desired instance type
+  key_name      = "my-key-pair"  # Replace with your SSH key pair name
+  subnet_id     = aws_subnet.public_subnets[0].id  # Use one of your public subnets
+
+  user_data = <<-EOF
+    #!/bin/bash
+    # Install Nginx
+    sudo apt-get update
+    sudo apt-get install -y nginx
+
+    # Start Nginx
+    sudo systemctl start nginx
+
+    # Enable Nginx to start on boot
+    sudo systemctl enable nginx
+    EOF
+
+  tags = {
+    Name = "NginxServer"
+  }
+}
 
 # Output variables as needed
 output "vpc_id" {
